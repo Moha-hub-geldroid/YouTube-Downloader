@@ -31,6 +31,7 @@ def youtube_help(message):
     youtube_table.add_row(["audio","/youtube_audio","mp3"])
     youtube_table.add_row(["video","/youtube","mp4"])
     bot.send_message(message.chat.id,text=str(youtube_table))
+    bot.send_message(message.chat.id,text="Example : /youtube https://www.example.com/test")
 
 @bot.message_handler(commands=["youtube"])
 def youtube_downloader(message):
