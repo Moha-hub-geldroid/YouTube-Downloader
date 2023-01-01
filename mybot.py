@@ -1,5 +1,5 @@
 #imports 
-import telebot
+from telebot import *
 from prettytable import PrettyTable 
 from pytube import YouTube
 import os
