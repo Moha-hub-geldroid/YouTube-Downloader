@@ -3,7 +3,6 @@ import telebot
 from prettytable import PrettyTable 
 from pytube import YouTube
 import os
-import requests
 
 ###################################################################
 
