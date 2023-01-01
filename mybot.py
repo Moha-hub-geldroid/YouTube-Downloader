@@ -39,11 +39,12 @@ def youtube_downloader(message):
     try:
         video = YouTube(link)
         title = video.title
+        length = video.length/60
         video.streams.filter(progressive=True, file_extension='mp4')
         vide = video.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp4")
         vid = open(vide,'rb')
         bot.send_video(message.chat.id,video=vid)
-        bot.reply_to(message,"Download completed Successfully !\nvideo title : {}\nvideo views : {}\nBy : @sirr_b52".format(video.title,video.views))
+        bot.reply_to(message,"Download completed Successfully !\nvideo title : {}\nvideo views : {}\nvideo length : '{}' minutes\n\nBy : @sirr_b52".format(video.title,video.views,length))
         vid.close()
         os.remove("Downloaded_by_sirr_b52.mp4")
         print("success")
@@ -54,11 +55,12 @@ def yotube_audio_downloader(message):
     link= message.text.replace("/youtube_audio","")
     try:
         audio = YouTube(link)
+        length = audio.length/60
         audio.streams.filter(progressive=True , file_extension='mp3')
         audi = audio.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp3")
         aud = open(audi,'rb')
         bot.send_document(message.chat.id,aud)
-        bot.reply_to(message,"Download completed Successfully !\nvideo title : {}\nvideo views : {}\nBy : @sirr_b52".format(audio.title,audio.views))
+        bot.reply_to(message,"Download completed Successfully !\nvideo title : {}\nvideo views : {}\nvideo length : '{}' minutes\n\nBy : @sirr_b52".format(audio.title,audio.views,length))
         aud.close()
         os.remove("Downloaded_by_sirr_b52.mp3")
     except:
