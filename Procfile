@@ -1,0 +1,1 @@
+workek: python mybot.py
