@@ -10,7 +10,7 @@ import json
 ###################################################################
 
 
-bot = telebot.TeleBot("5693306698:AAHfNtFFdw_kTXO-NMlQcaDAKGMXWBkUIcI")
+bot = telebot.TeleBot(5833750101:AAEF4r6FTnHarUvwjBF7PNdQ7v1X10Oa6CQ")
 
 # start message 
 @bot.message_handler(commands=["start"])
