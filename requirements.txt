@@ -1,5 +1,4 @@
 pyTelegramBotAPI
 prettytable
 pytube
-json
 requests
