@@ -111,9 +111,9 @@ def instagram(message):
         botfile = open(filename_,'rb')
         bot.send_document(message.chat.id,botfile)
         botfile.close()
-        bot.reply_to(message.chat.id,"Post downloaded successfully ✅")
+        bot.reply_to(message,"Post downloaded successfully ✅")
     except:
-        bot.reply_to(message.chat.id,text="Sorry .. I cant download this type of posts ❌")
+        bot.reply_to(message,text="Sorry .. I cant download this type of posts ❌")
 
 @bot.message_handler(commands=["instagram_help"])
 def instagram_help(message):
