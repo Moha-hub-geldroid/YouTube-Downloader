@@ -1,13 +1,15 @@
+# coded by Mohammad Mhaidat
+# instagram : sirr.b52
+# social media's telegram bot downloader
+
+
 #imports 
 import telebot
-from telebot import *
 from prettytable import PrettyTable 
 from pytube import YouTube
 import os
 import requests
 import json
-
-###################################################################
 
 
 bot = telebot.TeleBot("5630845902:AAFMvezKk09GXt5T4rzXW6G6o_BpUN1Y8Eg")
@@ -29,6 +31,7 @@ def help(message):
     help.field_names = ["SITE","COMMAND"]
     help.add_row(["YouTube","/youtube_help"])
     help.add_row(["Instagram","/instagram_help"])
+    help.add_row(["Tiktok","/tiktok_help"])
     bot.send_message(message.chat.id,text=str(help))
 
 
@@ -124,34 +127,47 @@ def instagram_help(message):
 
 @bot.message_handler(commands=["tiktok"])
 def tiktok(message):
-    link = message.text.replace("/tiktok","")
-    res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
-    entrance = res["video_no_watermark"]
-    req = requests.Session().get(entrance).content
-    filename = "downloaded by sirr b52.mp4"
-    with open(filename,"wb") as file:
-        file.write(req)
-        file.flush()
-    filename_ = open(filename,'rb')
-    bot.send_document(message.chat.id,filename_)
-
+    try:
+        link = message.text.replace("/tiktok","")
+        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
+        entrance = res["video_no_watermark"]
+        req = requests.Session().get(entrance).content
+        filename = "downloaded by sirr b52.mp4"
+        with open(filename,"wb") as file:
+            file.write(req)
+            file.flush()
+        filename_ = open(filename,'rb')
+        bot.send_document(message.chat.id,filename_)
+        bot.reply_to(message,"Post downloaded successfully ✅")
+    except:
+        bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 @bot.message_handler(commands=["tiktok_audio"])
 def tiktok_audio(message):
-    link = message.text.replace("/tiktok","")
-    res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
-    entrance = res["music_url"]
-    req = requests.Session().get(entrance).content
-    filename = "downloaded by sirr b52.mp3"
-    with open(filename,"wb") as file:
-        file.write(req)
-        file.flush()
-    filename_ = open(filename,'rb')
-    bot.send_document(message.chat.id,filename_)
+    try:
+        link = message.text.replace("/tiktok","")
+        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
+        entrance = res["music_url"]
+        req = requests.Session().get(entrance).content
+        filename = "downloaded by sirr b52.mp3"
+        with open(filename,"wb") as file:
+            file.write(req)
+            file.flush()
+        filename_ = open(filename,'rb')
+        bot.send_document(message.chat.id,filename_)
+        bot.reply_to(message,"Post downloaded successfully ✅")
+    except:
+        bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 
-
-
+@bot.message_handler(commands=["tiktok_help"])
+def tiktok_help(message):
+    tik_help = PrettyTable()
+    tik_help.field_names("USAGE","METHOD","EXTENSION")
+    tik_help.add_row("video","/tiktok <YOUR LINK>","mp4")
+    tik_help.add_row("audio","/tiktok_audio <YOUR LINK>","mp3")
+    bot.send_message(message.chat.id,text=tik_help)
+    bot.send_message(message.chat.id,text="Example : /tiktok https://vm.tiktok.com/test\n\n*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
 bot.polling()
