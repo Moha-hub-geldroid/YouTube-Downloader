@@ -127,25 +127,25 @@ def instagram_help(message):
 
 @bot.message_handler(commands=["tiktok"])
 def tiktok(message):
-    link = message.text.replace("/tiktok ","")
-    url = "https://tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com/vid/index"
-    querystring = {"url":link}
-    headers = {
-	"X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
-	"X-RapidAPI-Host": "tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com"}
-    if "https://" in str(link):
+    try:
+        link = message.text.replace("/tiktok ","")
+        url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+        querystring = {"url":link,"hd":"0"}
+        headers = {
+            "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+            "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
         res = requests.request("GET", url, headers=headers, params=querystring)
-        texttojson = json.loads(req.text)
-        data = texttojson["data"]
-        video = data["play"]
-        req = requests.get(video)
+        text = json.loads(res.text)
+        postFileUrl = text["data"]
+        video = postFileUrl["play"]
+        req = requests.Session().get(video).content
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
-            file.write(req.content)
+            file.write(req)
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
         bot.reply_to(message,"Post downloaded successfully ✅")
-    else:
+    except:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 @bot.message_handler(commands=["tiktok_audio"])
