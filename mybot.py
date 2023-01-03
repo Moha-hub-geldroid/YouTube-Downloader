@@ -56,7 +56,7 @@ def youtube_downloader(message):
         vide = video.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp4")
         vid = open(vide,'rb')
         bot.send_video(message.chat.id,video=vid)
-        bot.reply_to(message,"Download completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(video.title,video.views,length))
+        bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(video.title,video.views,length))
         vid.close()
         os.remove("Downloaded_by_sirr_b52.mp4")
         print("success")
@@ -72,7 +72,7 @@ def yotube_audio_downloader(message):
         audi = audio.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp3")
         aud = open(audi,'rb')
         bot.send_document(message.chat.id,aud)
-        bot.reply_to(message,"Download completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(audio.title,audio.views,length))
+        bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(audio.title,audio.views,length))
         aud.close()
         os.remove("Downloaded_by_sirr_b52.mp3")
     except:
@@ -114,7 +114,7 @@ def instagram(message):
         botfile = open(filename_,'rb')
         bot.send_document(message.chat.id,botfile)
         botfile.close()
-        bot.reply_to(message,"Post downloaded successfully ✅")
+        bot.reply_to(message,"Post was downloaded successfully ✅")
     except:
         bot.reply_to(message,text="Sorry .. I cant download this type of posts ❌")
 
@@ -144,25 +144,32 @@ def tiktok(message):
             file.write(req)
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
-        bot.reply_to(message,"Post downloaded successfully ✅")
+        bot.reply_to(message,"Video was downloaded successfully ✅")
     except:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 @bot.message_handler(commands=["tiktok_audio"])
 def tiktok_audio(message):
     link = message.text.replace("/tiktok_audio ","")
-    if "https://" in str(link):
-        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
-        entrance = res["music_url"]
-        req = requests.Session().get(entrance).content
+    try:
+        link = message.text.replace("/tiktok ","")
+        url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+        querystring = {"url":link,"hd":"0"}
+        headers = {
+            "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+            "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
+        res = requests.request("GET", url, headers=headers, params=querystring)
+        text = json.loads(res.text)
+        postFileUrl = text["data"]
+        video = postFileUrl["music"]
+        req = requests.Session().get(video).content
         filename = "downloaded by sirr b52.mp3"
         with open(filename,"wb") as file:
             file.write(req)
-            file.flush()
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
-        bot.reply_to(message,"Post downloaded successfully ✅")
-    else:
+        bot.reply_to(message,"Audio was downloaded successfully ✅")
+    except:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 
