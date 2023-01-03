@@ -142,7 +142,6 @@ def tiktok(message):
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
             file.write(req.content)
-            file.flush()
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
         bot.reply_to(message,"Post downloaded successfully ✅")
