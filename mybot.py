@@ -136,7 +136,7 @@ def tiktok(message):
     if "https://" in str(link):
         res = requests.request("GET", url, headers=headers, params=querystring)
 	textToJson = json.loads(response.text)
-        entrance = res["video"]
+        entrance = textToJson["video"]
 	reqPostFileUrl = requests.get(postFileUrl)
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
