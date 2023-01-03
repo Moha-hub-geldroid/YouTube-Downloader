@@ -128,9 +128,14 @@ def instagram_help(message):
 @bot.message_handler(commands=["tiktok"])
 def tiktok(message):
     link = message.text.replace("/tiktok ","")
+    url = "https://tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com/vid/index"
+    querystring = {"url":link}
+    headers = {
+	"X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+	"X-RapidAPI-Host": "tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com"}
     if "https://" in str(link):
-        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
-        entrance = res["video_no_watermark"]
+        res = requests.request("GET", url, headers=headers, params=querystring).json()
+        entrance = res["originvideo"]
         req = requests.Session().get(entrance).content
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
