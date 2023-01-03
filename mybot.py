@@ -183,4 +183,39 @@ def tiktok_help(message):
     bot.send_message(message.chat.id,text="Example : /tiktok https://vm.tiktok.com/test\n\n*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
+@bot.message_handler(commands=["tiktok_avatar"])
+def tikavtr(message):
+    link = message.text.replace("/tiktok ","")
+    url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+    querystring = {"url":link,"hd":"0"}
+    headers = {
+        "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+        "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
+    res = requests.request("GET", url, headers=headers, params=querystring)
+    text = json.loads(res.text)
+    author = text["author"]
+    user = author["unique_id"]
+    nickname = author["nickname"]
+    avatar = author["avatar"]
+    avatardown = requests.get(avatar).content
+    file = "test.jpg"
+    with open(file,'wb') as file:
+        file.write(avatardown)
+    file_ = open(file,'rb')
+    bot.send_document(message.chat.id,file_)
+    bot.send_message(message.chat.id,text=f"user : {user}\n\nnickname : {nickname}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 bot.polling()
