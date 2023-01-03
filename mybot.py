@@ -138,7 +138,7 @@ def tiktok(message):
         texttojson = json.loads(req.text)
         data = texttojson["data"]
         video = data["play"]
-        req = requests.Session().get(video).content
+        req = requests.get(video)
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
             file.write(req.content)
