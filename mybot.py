@@ -135,12 +135,13 @@ def tiktok(message):
 	"X-RapidAPI-Host": "tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com"}
     if "https://" in str(link):
         res = requests.request("GET", url, headers=headers, params=querystring)
-	textToJson = json.loads(response.text)
-        entrance = textToJson["video"]
-	reqPostFileUrl = requests.get(postFileUrl)
+        texttojson = json.loads(req.text)
+        data = texttojson["data"]
+        video = data["play"]
+        req = requests.Session().get(video).content
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
-            file.write(reqPostFileUrl.content)
+            file.write(req.content)
             file.flush()
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
@@ -152,8 +153,7 @@ def tiktok(message):
 def tiktok_audio(message):
     link = message.text.replace("/tiktok_audio ","")
     if "https://" in str(link):
-        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com")
-	testtojson =
+        res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
         entrance = res["music_url"]
         req = requests.Session().get(entrance).content
         filename = "downloaded by sirr b52.mp3"
