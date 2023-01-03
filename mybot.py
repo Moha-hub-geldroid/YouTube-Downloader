@@ -48,7 +48,7 @@ def youtube_downloader(message):
     try:
         video = YouTube(link)
         title = video.title
-        length = video.length/60
+        length = str(int(audio.length/60))+":"+str(audio.length%60)
         video.streams.filter(progressive=True, file_extension='mp4')
         vide = video.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp4")
         vid = open(vide,'rb')
@@ -64,7 +64,7 @@ def yotube_audio_downloader(message):
     link= message.text.replace("/youtube_audio","")
     try:
         audio = YouTube(link)
-        length = audio.length/60
+        length = str(int(audio.length/60))+":"+str(audio.length%60)
         audio.streams.filter(progressive=True , file_extension='mp3')
         audi = audio.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp3")
         aud = open(audi,'rb')
