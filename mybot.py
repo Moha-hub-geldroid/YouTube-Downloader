@@ -135,7 +135,7 @@ def tiktok(message):
 	"X-RapidAPI-Host": "tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com"}
     if "https://" in str(link):
         res = requests.request("GET", url, headers=headers, params=querystring).json()
-        entrance = res["originvideo"]
+        entrance = res["video"]
         req = requests.Session().get(entrance).content
         filename = "downloaded by sirr b52.mp4"
         with open(filename,"wb") as file:
