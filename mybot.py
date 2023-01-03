@@ -127,8 +127,8 @@ def instagram_help(message):
 
 @bot.message_handler(commands=["tiktok"])
 def tiktok(message):
-    try:
-        link = message.text.replace("/tiktok","")
+    link = message.text.replace("/tiktok","")
+    if "https://" in str(link):
         res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
         entrance = res["video_no_watermark"]
         req = requests.Session().get(entrance).content
@@ -139,13 +139,13 @@ def tiktok(message):
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
         bot.reply_to(message,"Post downloaded successfully ✅")
-    except:
+    else:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 @bot.message_handler(commands=["tiktok_audio"])
 def tiktok_audio(message):
-    try:
-        link = message.text.replace("/tiktok","")
+    link = message.text.replace("/tiktok","")
+    if "https://" in str(link):
         res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
         entrance = res["music_url"]
         req = requests.Session().get(entrance).content
@@ -156,7 +156,7 @@ def tiktok_audio(message):
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
         bot.reply_to(message,"Post downloaded successfully ✅")
-    except:
+    else:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
 
