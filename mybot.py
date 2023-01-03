@@ -184,8 +184,8 @@ def tiktok_help(message):
 
 
 @bot.message_handler(commands=["tiktok_avatar"])
-def tikavtr(message):
-    link = message.text.replace("/tiktok ","")
+def tiktok_avatar(message):
+    link = message.text.replace("/tiktok_avatar ","")
     url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
     querystring = {"url":link,"hd":"0"}
     headers = {
@@ -193,7 +193,8 @@ def tikavtr(message):
         "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
     res = requests.request("GET", url, headers=headers, params=querystring)
     text = json.loads(res.text)
-    author = text["author"]
+    data = text["data"]
+    author = data["author"]
     user = author["unique_id"]
     nickname = author["nickname"]
     avatar = author["avatar"]
