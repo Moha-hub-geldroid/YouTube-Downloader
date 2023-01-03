@@ -127,7 +127,7 @@ def instagram_help(message):
 
 @bot.message_handler(commands=["tiktok"])
 def tiktok(message):
-    link = message.text.replace("/tiktok","")
+    link = message.text.replace("/tiktok ","")
     if "https://" in str(link):
         res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
         entrance = res["video_no_watermark"]
@@ -144,7 +144,7 @@ def tiktok(message):
 
 @bot.message_handler(commands=["tiktok_audio"])
 def tiktok_audio(message):
-    link = message.text.replace("/tiktok","")
+    link = message.text.replace("/tiktok_audio ","")
     if "https://" in str(link):
         res = requests.Session().get(f"https://godownloader.com/api/tiktok-no-watermark-free?url={link}&key=godownloader.com").json()
         entrance = res["music_url"]
