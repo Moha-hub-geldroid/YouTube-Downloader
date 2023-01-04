@@ -120,7 +120,7 @@ def instagram(message):
 
 @bot.message_handler(commands=["instagram_help"])
 def instagram_help(message):
-    bot.send_message(message.chat.id,text = "command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram",parse_mode="markdown")
+    bot.send_message(message.chat.id,text = "command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories\n\ncan download any public instagram account's stories",parse_mode="markdown")
     bot.send_message(message.chat.id,text="*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
@@ -234,7 +234,9 @@ def insta_stories(message):
                 file1.write(req)
             num +=1
             botvideo = open(file,'rb')
-            bot.send_video(message.chat.id,video=botvideo)
+            bot.send_document(message.chat.id,botvideo)
+        count = len(stories)
+        bot.reply_to(message,text=f"Download {count} stories for {user} was completed successfully ✅")
     except:
         bot.reply_to(message,"Check the user and try again please..")
 
