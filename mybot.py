@@ -20,7 +20,7 @@ def start(message):
     bot.send_message(message.chat.id, text = "Welcome To YouTube Downloader\n\nOwner: @sirr_b52")
 @bot.message_handler(commands=["commands"])
 def commands(message):
-    bot.send_message(message.chat.id,text="/start ==> getting start with this bot !\n\n/help ==> to get help in how to use this bot\n\n/commands ==> to show all commands \n\n/youtube_help ==> to get help in how to use youtube tools\n\n/youtube <VIDEO LINK> ==> to download a youtube video 'mp4 extension'\n\n/youtube_audio <VIDEO LINK> ==> to download youtube video's audio 'mp3 extension'\n\n/instagram ==> download any instagram video or photo\n\n/instagram_help ==> to get help in how to use instagram tool\n\n/tiktok ==> download any tiktok video without watermark\n\n/tiktok_audio <YOUR LINK> ==> download tiktok video's audio 'mp3'\n\n/tiktok_info ==> get some info about tiktok video and download profile avatar \n\n/tiktok_help <YOUR LINK> ==> to get help in how to use tiktok tools")
+    bot.send_message(message.chat.id,text="/start ==> getting start with this bot !\n\n/help ==> to get help in how to use this bot\n\n/commands ==> to show all commands \n\n/youtube_help ==> to get help in how to use youtube tools\n\n/youtube <VIDEO LINK> ==> to download a youtube video 'mp4 extension'\n\n/youtube_audio <VIDEO LINK> ==> to download youtube video's audio 'mp3 extension'\n\n/instagram ==> download any instagram video or photo\n\n/instagram_help ==> to get help in how to use instagram tool\n\n/tiktok ==> download any tiktok video without watermark\n\n/tiktok_audio <YOUR LINK> ==> download tiktok video's audio 'mp3'\n\n/tiktok_help <YOUR LINK> ==> to get help in how to use tiktok tools")
     bot.send_message(message.chat.id,text="*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
     
     
@@ -176,48 +176,68 @@ def tiktok_audio(message):
 @bot.message_handler(commands=["tiktok_help"])
 def tiktok_help(message):
     tik_help = PrettyTable()
-    tik_help.field_names=["USAGE","METHOD","EXTENSION"]
-    tik_help.add_row(["video","/tiktok <YOUR LINK>","mp4"])
-    tik_help.add_row(["audio","/tiktok_audio <YOUR LINK>","mp3"])
-    tik_help.add_row(["info","/tiktok_info <YOUR LINK>","jpg"])
-    bot.send_message(message.chat.id,text=str(tik_help))
+    tik_help.field_names("USAGE","METHOD","EXTENSION")
+    tik_help.add_row("video","/tiktok <YOUR LINK>","mp4")
+    tik_help.add_row("audio","/tiktok_audio <YOUR LINK>","mp3")
+    bot.send_message(message.chat.id,text=tik_help)
     bot.send_message(message.chat.id,text="Example : /tiktok https://vm.tiktok.com/test\n\n*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
 @bot.message_handler(commands=["tiktok_info"])
 def tiktok_avatar(message):
-    try:
-        link = message.text.replace("/tiktok_info ","")
-        url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
-        querystring = {"url":link,"hd":"0"}
-        headers = {
-            "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
-            "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
-        res = requests.request("GET", url, headers=headers, params=querystring)
-        json_ = json.loads(res.text)
-        data = json_["data"]
-        author = data["author"]
-        user = author["unique_id"]
-        title = data["title"]
-        nickname = author["nickname"]
-        views = data["play_count"]
-        comments = data["comment_count"]
-        likes = data["digg_count"]
-        shares = data["share_count"]
-        downloads = data["download_count"]
-        avatar = author["avatar"]
-        bot.send_message(message.chat.id,text=f"*title * : {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *: {views}\n\n*comments* : {comments}\n\n*likes* : {likes}\n\n*download times* : {downloads}",parse_mode="markdown")
-        avatardown = requests.get(avatar).content
-        file = "downloaded by B52.jpg"
-        with open(file,'wb') as file1:
-            file1.write(avatardown)
-        file_ = open(file,'rb')
-        bot.send_document(message.chat.id,file_)
-    except:
-        bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
+    link = message.text.replace("/tiktok_info ","")
+    url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+    querystring = {"url":link,"hd":"0"}
+    headers = {
+        "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+        "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
+    res = requests.request("GET", url, headers=headers, params=querystring)
+    json_ = json.loads(res.text)
+    data = tex_["data"]
+    author = data["author"]
+    user = author["unique_id"]
+    title = json_["title"]
+    nickname = author["nickname"]
+    views = json_["play_count"]
+    comments = json_["comment_count"]
+    likes = json_["digg_count"]
+    shares = json_["share_count"]
+    downloads = json_["download_count"]
+    avatar = author["avatar"]
+    bot.send_message(message.chat.id,text=f"*title *: {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *:{views}\n\n*comments*:{comments}\n\n*likes*:{likes}\n\n*download times* : {downloads}")
+    avatardown = requests.get(avatar).content
+    file = "test.jpg"
+    with open(file,'wb') as file1:
+        file1.write(avatardown)
+    file_ = open(file,'rb')
+    bot.send_document(message.chat.id,file_)
     
 
-
+@bot.message_handler(commands=["/insta_stories"])
+def insta_stories(message):
+    user = message.text.replace("insta_stories ","")
+    try:
+        url = "https://instagram-story-downloader-media-downloader.p.rapidapi.com/story/index"
+        querystring = {"url":user}
+        headers = {
+	        "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+	        "X-RapidAPI-Host": "instagram-story-downloader-media-downloader.p.rapidapi.com"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        texttojson = json.loads(response.text)
+        stories = texttojson["stories"]
+        num = 0
+        for i in range(len(stories)):
+            media = stories[i]["media"]
+            req = requests.get(media).content
+            file = f"downloaded by b52{num}.mp4"
+            with open(file,'wb') as file1:
+                file1.write(req)
+                file1.flush()
+            num +=1
+            botvideo = open(file,'rb')
+            bot.send_video(message.chat.id,botvideo)
+    except:
+        bot.reply_to(message,"Check the user and try again please..")
 
 
 
