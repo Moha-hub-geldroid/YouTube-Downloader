@@ -176,11 +176,11 @@ def tiktok_audio(message):
 @bot.message_handler(commands=["tiktok_help"])
 def tiktok_help(message):
     tik_help = PrettyTable()
-    tik_help.field_names("USAGE","METHOD","EXTENSION")
-    tik_help.add_row("video","/tiktok <YOUR LINK>","mp4")
-    tik_help.add_row("audio","/tiktok_audio <YOUR LINK>","mp3")
-    tik_help.add_row("info","/tiktok_info <YOUR LINK>","jpg")
-    bot.send_message(message.chat.id,text=tik_help)
+    tik_help.field_names=["USAGE","METHOD","EXTENSION"]
+    tik_help.add_row(["video","/tiktok <YOUR LINK>","mp4"])
+    tik_help.add_row(["audio","/tiktok_audio <YOUR LINK>","mp3"])
+    tik_help.add_row(["info","/tiktok_info <YOUR LINK>","jpg"])
+    bot.send_message(message.chat.id,text=str(tik_help))
     bot.send_message(message.chat.id,text="Example : /tiktok https://vm.tiktok.com/test\n\n*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
