@@ -201,8 +201,8 @@ def tiktok_avatar(message):
     bot.send_message(message.chat.id,text=f"user : {user}\n\nnickname : {nickname}\n\nurl : {avatar}")
     avatardown = requests.get(avatar).content
     file = "test.jpg"
-    with open(file,'wb') as file:
-        file.write(avatardown)
+    with open(file,'wb') as file1:
+        file1.write(avatardown)
     file_ = open(file,'rb')
     bot.send_document(message.chat.id,file_)
     
