@@ -204,7 +204,7 @@ def tiktok_avatar(message):
     shares = data["share_count"]
     downloads = data["download_count"]
     avatar = author["avatar"]
-    bot.send_message(message.chat.id,text=f"*title *: {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *:{views}\n\n*comments*:{comments}\n\n*likes*:{likes}\n\n*download times* : {downloads}",parse_mode="markdown")
+    bot.send_message(message.chat.id,text=f"*title * : {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *: {views}\n\n*comments* : {comments}\n\n*likes* : {likes}\n\n*download times* : {downloads}",parse_mode="markdown")
     avatardown = requests.get(avatar).content
     file = "test.jpg"
     with open(file,'wb') as file1:
