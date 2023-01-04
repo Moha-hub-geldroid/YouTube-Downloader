@@ -186,32 +186,35 @@ def tiktok_help(message):
 
 @bot.message_handler(commands=["tiktok_info"])
 def tiktok_avatar(message):
-    link = message.text.replace("/tiktok_info ","")
-    url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
-    querystring = {"url":link,"hd":"0"}
-    headers = {
-        "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
-        "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
-    res = requests.request("GET", url, headers=headers, params=querystring)
-    json_ = json.loads(res.text)
-    data = json_["data"]
-    author = data["author"]
-    user = author["unique_id"]
-    title = data["title"]
-    nickname = author["nickname"]
-    views = data["play_count"]
-    comments = data["comment_count"]
-    likes = data["digg_count"]
-    shares = data["share_count"]
-    downloads = data["download_count"]
-    avatar = author["avatar"]
-    bot.send_message(message.chat.id,text=f"*title * : {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *: {views}\n\n*comments* : {comments}\n\n*likes* : {likes}\n\n*download times* : {downloads}",parse_mode="markdown")
-    avatardown = requests.get(avatar).content
-    file = "test.jpg"
-    with open(file,'wb') as file1:
-        file1.write(avatardown)
-    file_ = open(file,'rb')
-    bot.send_document(message.chat.id,file_)
+    try:
+        link = message.text.replace("/tiktok_info ","")
+        url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
+        querystring = {"url":link,"hd":"0"}
+        headers = {
+            "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
+            "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
+        res = requests.request("GET", url, headers=headers, params=querystring)
+        json_ = json.loads(res.text)
+        data = json_["data"]
+        author = data["author"]
+        user = author["unique_id"]
+        title = data["title"]
+        nickname = author["nickname"]
+        views = data["play_count"]
+        comments = data["comment_count"]
+        likes = data["digg_count"]
+        shares = data["share_count"]
+        downloads = data["download_count"]
+        avatar = author["avatar"]
+        bot.send_message(message.chat.id,text=f"*title * : {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *: {views}\n\n*comments* : {comments}\n\n*likes* : {likes}\n\n*download times* : {downloads}",parse_mode="markdown")
+        avatardown = requests.get(avatar).content
+        file = "downloaded by B52.jpg"
+        with open(file,'wb') as file1:
+            file1.write(avatardown)
+        file_ = open(file,'rb')
+        bot.send_document(message.chat.id,file_)
+    except:
+        bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
     
 
 
