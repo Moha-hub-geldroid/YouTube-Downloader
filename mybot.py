@@ -183,22 +183,28 @@ def tiktok_help(message):
     bot.send_message(message.chat.id,text="Example : /tiktok https://vm.tiktok.com/test\n\n*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
-@bot.message_handler(commands=["tiktok_avatar"])
+@bot.message_handler(commands=["tiktok_info"])
 def tiktok_avatar(message):
-    link = message.text.replace("/tiktok_avatar ","")
+    link = message.text.replace("/tiktok_info ","")
     url = "https://tiktok-video-no-watermark2.p.rapidapi.com/"
     querystring = {"url":link,"hd":"0"}
     headers = {
         "X-RapidAPI-Key": "3e4a585b37msh0d5d14130a89f2ap10380ajsnca63527f890b",
         "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
     res = requests.request("GET", url, headers=headers, params=querystring)
-    text = json.loads(res.text)
-    data = text["data"]
+    json_ = json.loads(res.text)
+    data = tex_["data"]
     author = data["author"]
     user = author["unique_id"]
+    title = json_["title"]
     nickname = author["nickname"]
+    views = json_["play_count"]
+    comments = json_["comment_count"]
+    likes = json_["digg_count"]
+    shares = json_["share_count"]
+    downloads = json_["download_count"]
     avatar = author["avatar"]
-    bot.send_message(message.chat.id,text=f"user : {user}\n\nnickname : {nickname}\n\nurl : {avatar}")
+    bot.send_message(message.chat.id,text=f"*title *: {title}\n\n*username* : {user}\n\n*nickname* : {nickname}\n\n*video views *:{views}\n\n*comments*:{comments}\n\n*likes*:{likes}\n\n*download times* : {downloads}")
     avatardown = requests.get(avatar).content
     file = "test.jpg"
     with open(file,'wb') as file1:
