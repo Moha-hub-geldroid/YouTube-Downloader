@@ -234,7 +234,7 @@ def insta_stories(message):
                 file1.write(req)
             num +=1
             botvideo = open(file,'rb')
-            bot.send_document(message.chat.id,botvideo)
+            bot.send_video(message.chat.id,video=botvideo)
     except:
         bot.reply_to(message,"Check the user and try again please..")
 
