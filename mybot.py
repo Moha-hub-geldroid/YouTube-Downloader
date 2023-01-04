@@ -213,7 +213,7 @@ def tiktok_avatar(message):
     bot.send_document(message.chat.id,file_)
     
 
-@bot.message_handler(commands=["/insta_stories"])
+@bot.message_handler(commands=["insta_stories"])
 def insta_stories(message):
     user = message.text.replace("/insta_stories ","")
     try:
