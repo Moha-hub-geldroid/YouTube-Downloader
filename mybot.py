@@ -215,7 +215,7 @@ def tiktok_avatar(message):
 
 @bot.message_handler(commands=["/insta_stories"])
 def insta_stories(message):
-    user = message.text.replace("insta_stories ","")
+    user = message.text.replace("/insta_stories ","")
     try:
         url = "https://instagram-story-downloader-media-downloader.p.rapidapi.com/story/index"
         querystring = {"url":user}
@@ -232,10 +232,9 @@ def insta_stories(message):
             file = f"downloaded by b52{num}.mp4"
             with open(file,'wb') as file1:
                 file1.write(req)
-                file1.flush()
             num +=1
             botvideo = open(file,'rb')
-            bot.send_video(message.chat.id, video=botvideo)
+            bot.send_document(message.chat.id,botvideo)
     except:
         bot.reply_to(message,"Check the user and try again please..")
 
