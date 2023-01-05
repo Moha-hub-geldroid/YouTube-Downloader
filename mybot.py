@@ -53,9 +53,9 @@ def youtube_downloader(message):
         title = video.title
         length = str(int(audio.length/60))+":"+str(audio.length%60)
         video.streams.filter(progressive=True, file_extension='mp4')
-        vide = video.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp4")
+        vide = video.streams.get_highest_resolution().download(filename="Downloaded by sirr b52.mp4")
         vid = open(vide,'rb')
-        bot.send_document(message.chat.id,vid)
+        bot.send_video(message.chat.id,video=vid)
         bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(title,video.views,length))
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
@@ -68,8 +68,10 @@ def yotube_audio_downloader(message):
         audio.streams.filter(progressive=True , file_extension='mp3')
         audi = audio.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp3")
         aud = open(audi,'rb')
-        bot.send_voice(message.chat.id,aud)
+        bot.send_document(message.chat.id,aud)
         bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(audio.title,audio.views,length))
+        aud.close()
+        os.remove("Downloaded_by_sirr_b52.mp3")
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
 
@@ -115,7 +117,7 @@ def instagram(message):
 
 @bot.message_handler(commands=["instagram_help"])
 def instagram_help(message):
-    bot.send_message(message.chat.id,text = "command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories\n\ncan download any public instagram account's stories",parse_mode="markdown")
+    bot.send_message(message.chat.id,text = "command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories *<USERNAME>*\n\ncan download any public instagram account's stories",parse_mode="markdown")
     bot.send_message(message.chat.id,text="*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
 
 
@@ -224,7 +226,7 @@ def insta_stories(message):
         for i in range(len(stories)):
             media = stories[i]["media"]
             req = requests.get(media).content
-            file = "downloaded by b52.mp4"
+            file = f"downloaded by b52{num}.mp4"
             with open(file,'wb') as file1:
                 file1.write(req)
             num +=1
