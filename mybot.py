@@ -117,7 +117,7 @@ def instagram(message):
 
 @bot.message_handler(commands=["instagram_help"])
 def instagram_help(message):
-    bot.send_message(message.chat.id,text="command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories *<USERNAME>*\n\ncan download any public instagram account stories",parse_mode="markdown")
+    bot.send_message(message.chat.id,text="command : /instagram <YOUR LINK>\n\ncan download video or image from instagram\n\ncommand : /insta_stories <USERNAME>\n\ncan download any public instagram account stories")
     bot.send_message(message.chat.id,text="*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
     
 
@@ -226,7 +226,7 @@ def insta_stories(message):
         for i in range(len(stories)):
             media = stories[i]["media"]
             req = requests.get(media).content
-            file = f"downloaded by b52{num}.mp4"
+            file = "downloaded by b52.mp4"
             with open(file,'wb') as file1:
                 file1.write(req)
             num +=1
