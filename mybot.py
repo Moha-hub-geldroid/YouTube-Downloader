@@ -117,9 +117,9 @@ def instagram(message):
 
 @bot.message_handler(commands=["instagram_help"])
 def instagram_help(message):
-    bot.send_message(message.chat.id,text="command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories *<USERNAME>*\n\ncan download any public instagram account's stories",parse_mode="markdown")
+    bot.send_message(message.chat.id,text="command : /instagram *<YOUR LINK>*\n\ncan download *video or image* from instagram\n\ncommand : /insta_stories *<USERNAME>*\n\ncan download any public instagram account stories",parse_mode="markdown")
     bot.send_message(message.chat.id,text="*Important notice :* _<YOUR LINK>_  means enter your link *without* <> tags",parse_mode="markdown")
-
+    
 
 
 @bot.message_handler(commands=["tiktok"])
