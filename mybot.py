@@ -47,7 +47,7 @@ def youtube_help(message):
 
 @bot.message_handler(commands=["youtube"])
 def youtube_downloader(message):
-    link = message.text.replace("/yotube","")
+    link = message.text.replace("/yotube ","")
     try:
         video = YouTube(link)
         title = video.title
@@ -57,8 +57,6 @@ def youtube_downloader(message):
         vid = open(vide,'rb')
         bot.send_video(message.chat.id,video=vid)
         bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(video.title,video.views,length))
-        vid.close()
-        os.remove("Downloaded_by_sirr_b52.mp4")
         print("success")
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
@@ -71,10 +69,8 @@ def yotube_audio_downloader(message):
         audio.streams.filter(progressive=True , file_extension='mp3')
         audi = audio.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp3")
         aud = open(audi,'rb')
-        bot.send_document(message.chat.id,aud)
+        bot.send_voice(message.chat.id,aud)
         bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(audio.title,audio.views,length))
-        aud.close()
-        os.remove("Downloaded_by_sirr_b52.mp3")
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
 
