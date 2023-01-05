@@ -55,9 +55,8 @@ def youtube_downloader(message):
         video.streams.filter(progressive=True, file_extension='mp4')
         vide = video.streams.get_highest_resolution().download(filename="Downloaded_by_sirr_b52.mp4")
         vid = open(vide,'rb')
-        bot.send_video(message.chat.id,video=vid)
-        bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(video.title,video.views,length))
-        print("success")
+        bot.send_document(message.chat.id,vid)
+        bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(title,video.views,length))
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
 @bot.message_handler(commands=["youtube_audio"])
