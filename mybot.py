@@ -51,7 +51,7 @@ def youtube_downloader(message):
     try:
         video = YouTube(link)
         title = video.title
-        length = str(int(audio.length/60))+":"+str(audio.length%60)
+        length = str(int(video.length/60))+":"+str(video.length%60)
         video.streams.filter(progressive=True, file_extension='mp4')
         vide = video.streams.get_highest_resolution().download(filename="Downloaded by sirr b52.mp4")
         vid = open(vide,'rb')
