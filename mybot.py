@@ -229,7 +229,7 @@ def insta_stories(message):
         for i in range(len(stories)):
             media = stories[i]["media"]
             req = requests.get(media).content
-            file = f"downloaded by b52{num}.mp4"
+            file = "downloaded by b52.mp4"
             with open(file,'wb') as file1:
                 file1.write(req)
             num +=1
