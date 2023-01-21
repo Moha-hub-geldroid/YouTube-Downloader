@@ -190,7 +190,7 @@ def tiktok_avatar(message):
         "X-RapidAPI-Host": "tiktok-video-no-watermark2.p.rapidapi.com"}
     res = requests.request("GET", url, headers=headers, params=querystring)
     json_ = json.loads(res.text)
-    data = tex_["data"]
+    data = json_["data"]
     author = data["author"]
     user = author["unique_id"]
     title = json_["title"]
