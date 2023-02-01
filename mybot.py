@@ -57,6 +57,7 @@ def youtube_downloader(message):
         vid = open(vide,'rb')
         bot.send_video(message.chat.id,video=vid)
         bot.reply_to(message,"Download was completed Successfully ✅\n➡️video title : {}\n➡️video views : {}\n➡️video length : '{}' minutes\n\nBy : @sirr_b52".format(title,video.views,length))
+        os.remove("Downloaded by sirr b52.mp4")
     except:
         bot.send_message(message.chat.id,text="There is nothing to download !!")
 @bot.message_handler(commands=["youtube_audio"])
@@ -112,6 +113,7 @@ def instagram(message):
         bot.send_document(message.chat.id,botfile)
         botfile.close()
         bot.reply_to(message,"Post was downloaded successfully ✅")
+        os.remove("downloaded by sirr_b52."+str(fileEx))
     except:
         bot.reply_to(message,text="Sorry .. I cant download this type of posts ❌")
 
@@ -142,6 +144,7 @@ def tiktok(message):
         filename_ = open(filename,'rb')
         bot.send_document(message.chat.id,filename_)
         bot.reply_to(message,"Video was downloaded successfully ✅")
+        os.remove("downloaded by sirr b52.mp4")
     except:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
@@ -166,6 +169,7 @@ def tiktok_audio(message):
         filename_ = open(filename,'rb')
         bot.send_voice(message.chat.id,filename_)
         bot.reply_to(message,"Audio was downloaded successfully ✅")
+        os.remove("downloaded by sirr b52.mp3")
     except:
         bot.reply_to(message,text="Sorry .. Something went wrong try again later ❌")
 
@@ -232,6 +236,7 @@ def insta_stories(message):
             num +=1
             botvideo = open(file,'rb')
             bot.send_document(message.chat.id,botvideo)
+            os.remove("downloaded by b52.mp4")
         count = len(stories)
         bot.reply_to(message,text=f"Download {count} stories for {user} was completed successfully ✅")
     except:
